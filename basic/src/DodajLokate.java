@@ -34,17 +34,19 @@ public class DodajLokate {
     public int wybierzCzasTrwaniaLokaty() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Na ile miesięcy chcesz założyć lokatę?: 1, 3 czy 6 ?");
-
         String wybranyCzasTrwania = scanner.next() ;
-        CzasTrwaniaLokaty wybrany = CzasTrwaniaLokaty.valueOf(wybranyCzasTrwania);
-        String wybranyString = wybrany.toString();
-        int gotowy = Integer.parseInt(wybranyString);
+        int czas = Integer.parseInt(wybranyCzasTrwania);
 
-        System.out.println(wybrany);
+        for (CzasTrwaniaLokaty c: CzasTrwaniaLokaty.values()){
+            int d = c.getNumVal();
+            if(d==czas){
+                czasTrwania = d;
+                System.out.println(czasTrwania);
+            }
+        }
+        System.out.println(czasTrwania);
+        return czasTrwania;
 
-        czasTrwania = gotowy;
-
-        return gotowy;
     }
 
     public static Konto znajdzKonto (long pesel) {
@@ -54,9 +56,11 @@ public class DodajLokate {
                 return konto;
             }
         }
-        System.out.println("Klient nie został znaleziony");
+        System.out.println("Konto nie zostało znalezione");
         return null;
     }
+
+
 
     public void zalozLokate(){
         Scanner scanner = new Scanner(System.in);
@@ -67,10 +71,12 @@ public class DodajLokate {
         Konto konto = znajdzKonto(pesel);
         long numerKontaLokaty = ZalozKonto.nadajNumerKonta();
 
-        wybierzCzasTrwaniaLokaty();
+        assert klient != null;
+        assert konto != null;
+
 
         Lokata nowaLokata = new Lokata(klient.getName(), klient.getSurname(), klient.getId(), klient.getPesel(), konto.getWaluta(), konto.getNumerKonta(), konto.getWaluta(), numerKontaLokaty,  wybierzCzasTrwaniaLokaty() );
-        System.out.println("Twój numer konta to: " + numerKontaLokaty);
+        System.out.println("Twój numer konta lokaty to: " + numerKontaLokaty);
         System.out.println(nowaLokata);
         LOKATY_LIST.add(nowaLokata);
 

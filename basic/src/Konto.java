@@ -15,7 +15,7 @@ public class Konto extends Client{
     }
 
     public String getName() {
-        return name;
+        return super.name;
     }
 
     public void setName(String name) {
@@ -23,7 +23,7 @@ public class Konto extends Client{
     }
 
     public String getSurname() {
-        return surname;
+        return super.surname;
     }
 
     public void setSurname(String surname) {
@@ -31,7 +31,7 @@ public class Konto extends Client{
     }
 
     public Long getId() {
-        return id;
+        return super.id;
     }
 
     public void setId(Long id) {
@@ -39,7 +39,7 @@ public class Konto extends Client{
     }
 
     public long getPesel() {
-        return pesel;
+        return super.getPesel();
     }
 
     public void setPesel(long pesel) {
