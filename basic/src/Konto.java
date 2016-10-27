@@ -1,6 +1,6 @@
 package src;
 
-public class Konto extends Client{
+public class Konto extends Client implements Uslugi  {
     String name;
     String surname;
     Long id;
@@ -18,48 +18,54 @@ public class Konto extends Client{
         return super.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getSurname() {
         return super.surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Long getId() {
+    public long getId() {
         return super.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public long getPesel() {
         return super.getPesel();
     }
 
-    public void setPesel(long pesel) {
-        this.pesel = pesel;
-    }
+
 
     public String getWaluta() {
         return waluta;
     }
-
-    public void setWaluta(String waluta) {
-        this.waluta = waluta;
-    }
-
     public long getNumerKonta() {
         return numerKonta;
     }
 
-    public void setNumerKonta(long numerKonta) {
-        this.numerKonta = numerKonta;
+
+    @Override
+    public String getWalutaLokaty() {
+        return null;
+    }
+
+    @Override
+    public int getCzasTrwaniaLokaty() {
+        return 0;
+    }
+
+    @Override
+    public long getNumerKontaLokaty() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Konto{" +
+                "name='" + super.name + '\'' +
+                ", surname='" + super.surname + '\'' +
+                ", id=" + super.id +
+                ", pesel=" + super.pesel +
+                ", waluta='" + waluta + '\'' +
+                ", numerKonta=" + numerKonta +
+                '}';
     }
 }
 

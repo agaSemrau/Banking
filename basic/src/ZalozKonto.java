@@ -81,6 +81,7 @@ public class ZalozKonto {
 
         if (wantToAdd == true) {
             zalozKonto();
+            czyChceszZalozycKonto();
         } else {
             System.out.println("Dziękujemy za wizytę");
             return;

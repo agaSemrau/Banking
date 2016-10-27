@@ -49,9 +49,9 @@ public class DodajLokate {
 
     }
 
-    public static Konto znajdzKonto (long pesel) {
+    public static Konto znajdzKonto (long kontoNr) {
         for (Konto konto : ACCOUNTS_LIST) {
-            if (konto.getPesel() == pesel) {
+            if (konto.getNumerKonta() ==kontoNr) {
                 System.out.println(konto);
                 return konto;
             }
@@ -66,14 +66,16 @@ public class DodajLokate {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj numer pesel");
         long pesel = Long.parseLong(scanner.next());
+        System.out.println("Podaj numer konta");
+        long kontoNr = Long.parseLong(scanner.next());
 
         Client klient = ZalozKonto.findClient(pesel);
-        Konto konto = znajdzKonto(pesel);
+        Konto konto = znajdzKonto(kontoNr);
         long numerKontaLokaty = ZalozKonto.nadajNumerKonta();
+
 
         assert klient != null;
         assert konto != null;
-
 
         Lokata nowaLokata = new Lokata(klient.getName(), klient.getSurname(), klient.getId(), klient.getPesel(), konto.getWaluta(), konto.getNumerKonta(), konto.getWaluta(), numerKontaLokaty,  wybierzCzasTrwaniaLokaty() );
         System.out.println("Twój numer konta lokaty to: " + numerKontaLokaty);
