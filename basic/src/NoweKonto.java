@@ -3,13 +3,12 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicLong;
 
-import static src.DodajKlienta.CLIENTS_LIST;
-
+import static src.NowyKlient.CLIENTS_LIST;
 
 
-public class ZalozKonto {
+
+public class NoweKonto {
 
     public static final List<Konto> ACCOUNTS_LIST = new ArrayList<Konto>();
 

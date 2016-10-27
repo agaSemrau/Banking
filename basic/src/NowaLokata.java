@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static src.DodajKlienta.CLIENTS_LIST;
-import static src.ZalozKonto.ACCOUNTS_LIST;
+import static src.NoweKonto.ACCOUNTS_LIST;
 
-public class DodajLokate {
+public class NowaLokata {
 
     public static final List<Lokata> LOKATY_LIST = new ArrayList<Lokata>();
 
@@ -69,9 +68,9 @@ public class DodajLokate {
         System.out.println("Podaj numer konta");
         long kontoNr = Long.parseLong(scanner.next());
 
-        Client klient = ZalozKonto.findClient(pesel);
+        Client klient = NoweKonto.findClient(pesel);
         Konto konto = znajdzKonto(kontoNr);
-        long numerKontaLokaty = ZalozKonto.nadajNumerKonta();
+        long numerKontaLokaty = NoweKonto.nadajNumerKonta();
 
 
         assert klient != null;

@@ -3,9 +3,9 @@ package src;
 public class Main {
 
     public static void main(String[] args){
-        DodajKlienta nowyKlient = new DodajKlienta();
-        ZalozKonto noweKonto = new ZalozKonto();
-        DodajLokate nowaLokata = new DodajLokate();
+        NowyKlient nowyKlient = new NowyKlient();
+        NoweKonto noweKonto = new NoweKonto();
+        NowaLokata nowaLokata = new NowaLokata();
         nowyKlient.dodajKlienta();
         noweKonto.czyChceszZalozycKonto();
         nowaLokata.czyChceszZalozycLokate();

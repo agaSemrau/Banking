@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class DodajKlienta {
+public class NowyKlient {
     public static final List<Client> CLIENTS_LIST = new ArrayList<Client>();
     private static Scanner scanner = new Scanner(System.in);
     private static AtomicLong nextId = new AtomicLong();
@@ -50,7 +50,7 @@ public class DodajKlienta {
         }
 
 
-        DodajKlienta nowyKlient = new DodajKlienta();
+        NowyKlient nowyKlient = new NowyKlient();
         nowyKlient.dodajKlienta();
     }
 }

@@ -2,15 +2,15 @@ package src;
 
 
 public class Lokata extends Client implements Uslugi {
-    String name;
-    String surname;
-    Long id;
-    long pesel;
-    String waluta;
-    long numerKonta;
-    String walutaLokaty;
-    long numerKontaLokaty;
-    int czasTrwaniaLokaty;
+    private String name;
+    private String surname;
+    private Long id;
+    private long pesel;
+    private String waluta;
+    private long numerKonta;
+    private String walutaLokaty;
+    private long numerKontaLokaty;
+    private int czasTrwaniaLokaty;
 
     public Lokata( String name, String surname, Long id, Long pesel, String waluta, long numerKonta, String walutaLokaty, long numerKontaLokaty, int czasTrwaniaLokaty) {
         super(name, surname, id, pesel);

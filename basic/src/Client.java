@@ -1,6 +1,6 @@
 package src;
 
-import static src.DodajKlienta.CLIENTS_LIST;
+import static src.NowyKlient.CLIENTS_LIST;
 
 public class Client  {
     String name;

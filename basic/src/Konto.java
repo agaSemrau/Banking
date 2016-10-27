@@ -1,12 +1,12 @@
 package src;
 
 public class Konto extends Client implements Uslugi  {
-    String name;
-    String surname;
-    Long id;
-    long pesel;
-    String waluta;
-    long numerKonta;
+    private String name;
+    private String surname;
+    private Long id;
+    private long pesel;
+    private String waluta;
+    private long numerKonta;
 
     public Konto( String name, String surname, Long id, Long pesel, String waluta, long numerKonta) {
         super(name, surname, id, pesel);
@@ -15,16 +15,16 @@ public class Konto extends Client implements Uslugi  {
     }
 
     public String getName() {
-        return super.name;
+        return name;
     }
 
 
     public String getSurname() {
-        return super.surname;
+        return surname;
     }
 
     public long getId() {
-        return super.id;
+        return id;
     }
 
     public long getPesel() {
