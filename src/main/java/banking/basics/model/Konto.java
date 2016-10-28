@@ -1,4 +1,4 @@
-package src;
+package banking.basics.banking.basics.model;
 
 public class Konto extends Client implements Uslugi  {
     private String name;

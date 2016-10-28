@@ -1,4 +1,4 @@
-package src;
+package banking.basics.banking.basics.model;
 
 import static src.NowyKlient.CLIENTS_LIST;
 
