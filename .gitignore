@@ -6,6 +6,6 @@
 *.ear
 
 .idea
-*.iml
 target.idea
 out
+*.iml

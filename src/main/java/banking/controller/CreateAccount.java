@@ -1,23 +1,23 @@
-package banking.basics.controller;
+package banking.controller;
 
-import banking.basics.model.Client;
-import banking.basics.model.Konto;
-import banking.basics.model.Waluty;
+import banking.model.Account;
+import banking.model.Client;
+import banking.model.Currencies;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 
-public class NoweKonto {
+public class CreateAccount {
 
-    public static final List<Konto> ACCOUNTS_LIST = new ArrayList<Konto>();
+    public static final List<Account> ACCOUNTS_LIST = new ArrayList<Account>();
 
     String waluta = "";
 
 
     public static Client findClient(long pesel) {
-        for (Client klient : NowyKlient.CLIENTS_LIST) {
+        for (Client klient : CreateClient.CLIENTS_LIST) {
             if (klient.getPesel() == pesel) {
                 System.out.println(klient);
                 return klient;
@@ -45,7 +45,7 @@ public class NoweKonto {
         System.out.println("Wybierz jedną z walut: PLN, EUR, USD, CHF");
 
         String wybranaWaluta = scanner.next().toUpperCase();
-        Waluty wybrana=Waluty.valueOf(wybranaWaluta);
+        Currencies wybrana= Currencies.valueOf(wybranaWaluta);
 
         System.out.println(wybrana);
 
@@ -64,9 +64,9 @@ public class NoweKonto {
 
             wybierzWalute();
 
-        Konto noweKonto = new Konto(klient.getName(), klient.getSurname(), klient.getId(), klient.getPesel(), waluta, nadajNumerKonta());
-        System.out.println("Twój numer konta to: " + noweKonto.getNumerKonta());
-        ACCOUNTS_LIST.add(noweKonto);
+        Account noweAccount = new Account( waluta, nadajNumerKonta());
+        System.out.println("Twój numer konta to: " + noweAccount.getNumerKonta());
+        ACCOUNTS_LIST.add(noweAccount);
     }
 
 

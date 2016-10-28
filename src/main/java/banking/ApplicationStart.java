@@ -1,18 +1,18 @@
-package banking.basics;
+package banking;
 
-import banking.basics.controller.NowaLokata;
-import banking.basics.controller.NoweKonto;
-import banking.basics.controller.NowyKlient;
+import banking.controller.CreateInvestment;
+import banking.controller.CreateAccount;
+import banking.controller.CreateClient;
 
 public class ApplicationStart {
 
     public static void main(String[] args){
-        NowyKlient nowyKlient = new NowyKlient();
-        NoweKonto noweKonto = new NoweKonto();
-        NowaLokata nowaLokata = new NowaLokata();
-        nowyKlient.dodajKlienta();
-        noweKonto.czyChceszZalozycKonto();
-        nowaLokata.czyChceszZalozycLokate();
+        CreateClient createClient = new CreateClient();
+        CreateAccount createAccount = new CreateAccount();
+        CreateInvestment createInvestment = new CreateInvestment();
+        createClient.dodajKlienta();
+        createAccount.czyChceszZalozycKonto();
+        createInvestment.czyChceszZalozycLokate();
 
     }
 }

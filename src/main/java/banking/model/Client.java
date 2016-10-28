@@ -1,22 +1,24 @@
-package banking.basics.model;
+package banking.model;
 
-import static banking.basics.controller.NowyKlient.CLIENTS_LIST;
+import banking.controller.CreateClient;
 
 public class Client  {
     String name;
     String surname;
     long id;
     long pesel;
+    Account account;
 
-    public Client( String name, String surname, long id, Long pesel) {
+    public Client(String name, String surname, long id, long pesel, Account account) {
         this.name = name;
         this.surname = surname;
         this.id = id;
         this.pesel = pesel;
+        this.account = account;
     }
 
     public Client findClient(long pesel) {
-        for (Client klient : CLIENTS_LIST) {
+        for (Client klient : CreateClient.CLIENTS_LIST) {
             if (klient.getPesel() == pesel) {
                 System.out.println(klient);
                 return klient;

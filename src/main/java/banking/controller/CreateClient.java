@@ -1,18 +1,20 @@
-package banking.basics.controller;
-import banking.basics.model.Client;
+package banking.controller;
+import banking.model.Account;
+import banking.model.Client;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class NowyKlient {
+public class CreateClient {
     public static final List<Client> CLIENTS_LIST = new ArrayList<Client>();
     private static Scanner scanner = new Scanner(System.in);
     private static AtomicLong nextId = new AtomicLong();
     private static long idCounter() {
         return nextId.getAndIncrement();
     }
+    Account account;
 
     public void dodajKlienta(){
 
@@ -38,7 +40,7 @@ public class NowyKlient {
             System.out.println("Podaj numer pesel");
             pesel = Long.parseLong(scanner.next());
 
-            Client klient = new Client(imie, nazwisko, idCounter(), pesel);
+            Client klient = new Client(imie, nazwisko, idCounter(), pesel, account);
             CLIENTS_LIST.add(klient);
 
             System.out.println(klient.toString());
@@ -52,7 +54,7 @@ public class NowyKlient {
         }
 
 
-        NowyKlient nowyKlient = new NowyKlient();
-        nowyKlient.dodajKlienta();
+        CreateClient createClient = new CreateClient();
+        createClient.dodajKlienta();
     }
 }
