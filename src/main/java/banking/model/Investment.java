@@ -3,19 +3,17 @@ package banking.model;
 
 import banking.controller.Uslugi;
 
-public class Investment implements Uslugi {
+public abstract class Investment implements Uslugi {
 
     private String walutaLokaty;
     private long numerKontaLokaty;
     private int czasTrwaniaLokaty;
-    private double oprocentowanie;
     private long kwotaLokaty;
     private String dataZalozeniaLokaty;
 
     public Investment(String walutaLokaty, long numerKontaLokaty,
-                      int czasTrwaniaLokaty, double oprocentowanie,
+                      int czasTrwaniaLokaty,
                       long kwotaLokaty, String dataZalozeniaLokaty) {
-        this.oprocentowanie = oprocentowanie;
         this.czasTrwaniaLokaty = czasTrwaniaLokaty;
         this.numerKontaLokaty = numerKontaLokaty;
         this.walutaLokaty = walutaLokaty;
@@ -31,7 +29,6 @@ public class Investment implements Uslugi {
                 ", walutaLokaty='" + walutaLokaty + '\'' +
                 ", numerKontaLokaty=" + numerKontaLokaty +
                 ", czasTrwaniaLokaty=" + czasTrwaniaLokaty +
-                ", oprocentowanie=" + oprocentowanie +
                 ", kwotaLokaty=" + kwotaLokaty +
                 ", dataZalozeniaLokaty=" + dataZalozeniaLokaty +
                 '}';

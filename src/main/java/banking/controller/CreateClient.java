@@ -1,6 +1,7 @@
 package banking.controller;
 import banking.model.Account;
 import banking.model.Client;
+import banking.model.Investment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,8 @@ public class CreateClient {
     private static long idCounter() {
         return nextId.getAndIncrement();
     }
-    Account account;
+    List<Account> ACCOUNTS_LIST;
+    List<Investment> INVESTMENTS_LIST;
 
     public void dodajKlienta(){
 
@@ -28,7 +30,6 @@ public class CreateClient {
 
         String imie = "";
         String nazwisko = "";
-        long id;
         long pesel;
 
         if (wantToAdd == true){
@@ -40,7 +41,7 @@ public class CreateClient {
             System.out.println("Podaj numer pesel");
             pesel = Long.parseLong(scanner.next());
 
-            Client klient = new Client(imie, nazwisko, idCounter(), pesel, account);
+            Client klient = new Client(imie, nazwisko, idCounter(), pesel, ACCOUNTS_LIST, INVESTMENTS_LIST);
             CLIENTS_LIST.add(klient);
 
             System.out.println(klient.toString());
@@ -52,7 +53,6 @@ public class CreateClient {
             System.out.println("Dziękujemy za wizytę");
             return;
         }
-
 
         CreateClient createClient = new CreateClient();
         createClient.dodajKlienta();

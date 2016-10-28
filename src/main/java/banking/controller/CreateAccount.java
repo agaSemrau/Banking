@@ -15,7 +15,6 @@ public class CreateAccount {
 
     String waluta = "";
 
-
     public static Client findClient(long pesel) {
         for (Client klient : CreateClient.CLIENTS_LIST) {
             if (klient.getPesel() == pesel) {
@@ -53,23 +52,6 @@ public class CreateAccount {
     }
 
 
-    public void zalozKonto() {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj numer pesel");
-        long pesel = Long.parseLong(scanner.next());
-
-        Client klient = findClient(pesel);
-
-
-            wybierzWalute();
-
-        Account noweAccount = new Account( waluta, nadajNumerKonta());
-        System.out.println("Twój numer konta to: " + noweAccount.getNumerKonta());
-        ACCOUNTS_LIST.add(noweAccount);
-    }
-
-
     public void czyChceszZalozycKonto() {
         System.out.println("Czy chcesz założyć konto? T/N");
 
@@ -86,5 +68,26 @@ public class CreateAccount {
             System.out.println("Dziękujemy za wizytę");
             return;
         }
+    }
+
+    public void zalozKonto() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj numer pesel");
+        long pesel = Long.parseLong(scanner.next());
+
+        Client klient = findClient(pesel);
+
+
+        wybierzWalute();
+
+        Account noweAccount = new Account( waluta, nadajNumerKonta());
+
+        System.out.println("Twój numer konta to: " + noweAccount.getNumerKonta());
+
+        ACCOUNTS_LIST.add(noweAccount);
+        klient.setACCOUNTS_LIST(ACCOUNTS_LIST);
+        System.out.println(klient);
+
     }
 }
