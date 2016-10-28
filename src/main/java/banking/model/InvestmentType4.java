@@ -11,4 +11,11 @@ public class InvestmentType4 extends Investment{
     public double getOprocentowanie() {
         return oprocentowanie;
     }
+
+    @Override
+    public String toString() {
+        return "InvestmentType4{" +
+                "oprocentowanie=" + oprocentowanie +
+                '}';
+    }
 }

@@ -7,4 +7,11 @@ public class InvestmentType2 extends Investment{
         super(walutaLokaty, numerKontaLokaty, czasTrwaniaLokaty, kwotaLokaty, dataZalozeniaLokaty);
 
     }
+
+    @Override
+    public String toString() {
+        return "InvestmentType2{" +
+                "oprocentowanie=" + oprocentowanie +
+                '}';
+    }
 }

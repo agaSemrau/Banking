@@ -79,9 +79,11 @@ public class CreateInvestment {
         long pesel = Long.parseLong(scanner.next());
         System.out.println("Podaj numer konta");
         long kontoNr = Long.parseLong(scanner.next());
-
         Client klient = CreateAccount.findClient(pesel);
         Account account = znajdzKonto(kontoNr);
+        wybierzCzasTrwaniaLokaty();
+        ustalKwoteLokaty();
+
         long numerKontaLokaty = CreateAccount.nadajNumerKonta();
 
         assert klient != null;
@@ -101,7 +103,7 @@ public class CreateInvestment {
             if (kwotaLokaty < 1000) {
                 nowaInvestment = new InvestmentType3(account.getWaluta(), numerKontaLokaty, czasTrwania, kwotaLokaty, ustaleDateZalozeniaLokaty());
             }
-            if (kwotaLokaty > 1000) {
+            if (kwotaLokaty > 1000 && kwotaLokaty<5000) {
                 nowaInvestment = new InvestmentType4(account.getWaluta(), numerKontaLokaty, czasTrwania, kwotaLokaty, ustaleDateZalozeniaLokaty());
             }
 
@@ -113,6 +115,7 @@ public class CreateInvestment {
             klient.setINVESTMENTS_LIST(INVESTMENTS_LIST);
 
             System.out.println(klient);
+
 
         }
         return nowaInvestment;
