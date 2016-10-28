@@ -1,6 +1,6 @@
-package banking.basics.banking.basics.model;
+package banking.basics.model;
 
-import static src.NowyKlient.CLIENTS_LIST;
+import static banking.basics.controller.NowyKlient.CLIENTS_LIST;
 
 public class Client  {
     String name;

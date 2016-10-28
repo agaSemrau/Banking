@@ -1,11 +1,14 @@
-package src;
+package banking.basics.controller;
 
+
+import banking.basics.model.Client;
+import banking.basics.model.CzasTrwaniaLokaty;
+import banking.basics.model.Konto;
+import banking.basics.model.Lokata;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static src.NoweKonto.ACCOUNTS_LIST;
 
 public class NowaLokata {
 
@@ -49,7 +52,7 @@ public class NowaLokata {
     }
 
     public static Konto znajdzKonto (long kontoNr) {
-        for (Konto konto : ACCOUNTS_LIST) {
+        for (Konto konto : NoweKonto.ACCOUNTS_LIST) {
             if (konto.getNumerKonta() ==kontoNr) {
                 System.out.println(konto);
                 return konto;

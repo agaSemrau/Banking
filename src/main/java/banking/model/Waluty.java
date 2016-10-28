@@ -1,4 +1,4 @@
-package banking.basics.banking.basics.model;
+package banking.basics.model;
 
 
 public enum Waluty {

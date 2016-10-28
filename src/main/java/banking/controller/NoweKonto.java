@@ -1,11 +1,12 @@
-package src;
+package banking.basics.controller;
+
+import banking.basics.model.Client;
+import banking.basics.model.Konto;
+import banking.basics.model.Waluty;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static src.NowyKlient.CLIENTS_LIST;
-
 
 
 public class NoweKonto {
@@ -16,7 +17,7 @@ public class NoweKonto {
 
 
     public static Client findClient(long pesel) {
-        for (Client klient : CLIENTS_LIST) {
+        for (Client klient : NowyKlient.CLIENTS_LIST) {
             if (klient.getPesel() == pesel) {
                 System.out.println(klient);
                 return klient;

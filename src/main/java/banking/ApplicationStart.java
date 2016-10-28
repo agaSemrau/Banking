@@ -1,6 +1,10 @@
-package src;
+package banking.basics;
 
-public class Main {
+import banking.basics.controller.NowaLokata;
+import banking.basics.controller.NoweKonto;
+import banking.basics.controller.NowyKlient;
+
+public class ApplicationStart {
 
     public static void main(String[] args){
         NowyKlient nowyKlient = new NowyKlient();

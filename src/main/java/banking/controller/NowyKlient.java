@@ -1,4 +1,6 @@
-package src;
+package banking.basics.controller;
+import banking.basics.model.Client;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
