@@ -1,6 +1,6 @@
 package banking.model;
 
-import banking.controller.CreateClient;
+import banking.controller.ClientController;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class Client  {
     }
 
     public Client findClient(long pesel) {
-        for (Client klient : CreateClient.CLIENTS_LIST) {
+        for (Client klient : ClientController.CLIENTS_LIST) {
             if (klient.getPesel() == pesel) {
                 System.out.println(klient);
                 return klient;
