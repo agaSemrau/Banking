@@ -1,9 +1,7 @@
 package banking.model;
 
 
-import banking.controller.Uslugi;
-
-public abstract class Investment implements Uslugi {
+public abstract class Investment {
 
     private String walutaLokaty;
     private long numerKontaLokaty;

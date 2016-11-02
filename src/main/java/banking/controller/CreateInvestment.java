@@ -6,6 +6,10 @@ import banking.model.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static banking.controller.ClientController.findClient;
+import static banking.controller.ServicesController.ACCOUNTS_LIST;
+import static banking.controller.ServicesController.nadajNumerKonta;
+
 public class CreateInvestment {
 
     public static final List<Investment> INVESTMENTS_LIST = new ArrayList<Investment>();
@@ -49,7 +53,7 @@ public class CreateInvestment {
     }
 
     private static Account znajdzKonto(long kontoNr) {
-        for (Account account : CreateAccount.ACCOUNTS_LIST) {
+        for (Account account : ACCOUNTS_LIST) {
             if (account.getNumerKonta() == kontoNr) {
                 System.out.println(account);
                 return account;
@@ -79,12 +83,12 @@ public class CreateInvestment {
         long pesel = Long.parseLong(scanner.next());
         System.out.println("Podaj numer konta");
         long kontoNr = Long.parseLong(scanner.next());
-        Client klient = CreateAccount.findClient(pesel);
+        Client klient = findClient(pesel);
         Account account = znajdzKonto(kontoNr);
         wybierzCzasTrwaniaLokaty();
         ustalKwoteLokaty();
 
-        long numerKontaLokaty = CreateAccount.nadajNumerKonta();
+        long numerKontaLokaty = nadajNumerKonta();
 
         assert klient != null;
         assert account != null;

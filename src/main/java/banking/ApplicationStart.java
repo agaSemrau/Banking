@@ -2,6 +2,7 @@ package banking;
 
 
 import banking.model.forms.ClientForm;
+import banking.model.forms.OpenAccountForm;
 import banking.model.forms.FindClientForm;
 
 
@@ -27,7 +28,7 @@ public class ApplicationStart {
             JButton findAccount = new JButton("Wyszukaj konto");
             addClient.addActionListener(new ClientForm());
             showClient.addActionListener(new FindClientForm());
-            createAccount.addActionListener(new CreateAccountForm());
+            createAccount.addActionListener(new OpenAccountForm());
 
             panelButtons.setLayout(new BoxLayout(panelButtons, BoxLayout.Y_AXIS));
             panelButtons.setBackground(Color.black);

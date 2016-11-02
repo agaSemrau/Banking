@@ -1,9 +1,7 @@
 package banking.model;
 
-import banking.controller.Uslugi;
 
-
-public class Account implements Uslugi {
+public class Account {
     private String waluta;
     private long numerKonta;
 

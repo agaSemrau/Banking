@@ -7,6 +7,9 @@ import banking.model.Investment;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static banking.controller.CreateInvestment.INVESTMENTS_LIST;
+import static banking.controller.ServicesController.ACCOUNTS_LIST;
+
 public class ClientController {
 
     public static final java.util.List<Client> CLIENTS_LIST = new ArrayList<Client>();
@@ -14,8 +17,7 @@ public class ClientController {
     private static long idCounter() {
         return nextId.getAndIncrement();
     }
-    private static java.util.List<Account> ACCOUNTS_LIST;
-    private static java.util.List<Investment> INVESTMENTS_LIST;
+
 
     public static void createClient(String name, String surname, int pesel){
 
@@ -34,6 +36,7 @@ public class ClientController {
                 return klient;
             }else {
                 System.out.println("Klient nie został znaleziony");
+                return null;
             }
         }
         return null;
