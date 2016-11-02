@@ -8,13 +8,13 @@ import java.awt.event.ActionListener;
 import static banking.controller.ClientController.findClient;
 
 
-public class FindClientForm implements ActionListener{
+public class FindClientForm implements ActionListener {
 
     public static void createPanel() {
-        String[] labels = {"Podaj nr pesel" };
-        char[] mnemonics = { 'P'};
-        int[] widths = { 15 };
-        String[] descs = { "Pesel" };
+        String[] labels = {"Podaj nr pesel"};
+        char[] mnemonics = {'P'};
+        int[] widths = {15};
+        String[] descs = {"Pesel"};
 
         final Form form = new Form(labels, mnemonics, widths, descs);
 
@@ -37,16 +37,13 @@ public class FindClientForm implements ActionListener{
         f.setVisible(true);
     }
 
-    public static void createFindClientForm(){
-        String[] labels = {};
-        char[] mnemonics = {};
-        int[] widths = {};
-        String[] tips = {};
+    public static void createFindClientForm() {
+
 
         createPanel();
     }
 
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         createFindClientForm();
     }
 }

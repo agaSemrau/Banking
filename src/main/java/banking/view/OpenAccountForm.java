@@ -1,6 +1,5 @@
 package banking.view;
 
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -25,9 +24,9 @@ public class OpenAccountForm implements ActionListener {
 
 
         String[] labels = {"Podaj nr pesel"};
-        char[] mnemonics = { 'P'};
-        int[] widths = { 15 };
-        String[] descs = { "Pesel" };
+        char[] mnemonics = {'P'};
+        int[] widths = {15};
+        String[] descs = {"Pesel"};
 
         final Form form = new Form(labels, mnemonics, widths, descs);
 
@@ -52,31 +51,27 @@ public class OpenAccountForm implements ActionListener {
         listaWalut.setVisibleRowCount(4);
         listaWalut.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listaWalut.addListSelectionListener(new ListSelectionListener() {
-                                                public void valueChanged(ListSelectionEvent le) {
-                                                    int idx = listaWalut.getSelectedIndex();
-                                                    if (idx != -1)
-                                                       selectedCurrency =  waluty[idx];
-                                                    else
-                                                        System.out.println("Please choose a cuurency.");
-                                                }
-                                            });
+            public void valueChanged(ListSelectionEvent le) {
+                int idx = listaWalut.getSelectedIndex();
+                if (idx != -1)
+                    selectedCurrency = waluty[idx];
+                else
+                    System.out.println("Please choose a cuurency.");
+            }
+        });
         f.getContentPane().add(p, BorderLayout.SOUTH);
         f.pack();
         f.setVisible(true);
     }
 
 
+    public static void createOpenAccountForm() {
 
-    public static void createOpenAccountForm(){
-        String[] labels = {};
-        char[] mnemonics = {};
-        int[] widths = {};
-        String[] tips = {};
 
         createPanel();
     }
 
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         createOpenAccountForm();
     }
 }

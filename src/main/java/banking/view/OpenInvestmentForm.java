@@ -21,14 +21,12 @@ public class OpenInvestmentForm implements ActionListener {
         return selectedInvestmentPeriod;
     }
 
-
-
     public static void createPanel() {
 
         String[] labels = {"Podaj nr pesel", "Podaj nr konta", "Podaj kwotę lokaty"};
-        char[] mnemonics = { 'P', 'A', 'I'};
-        int[] widths = { 15, 15, 15 };
-        String[] descs = { "Pesel", "Numer konta", "Kwota lokaty"  };
+        char[] mnemonics = {'P', 'A', 'I'};
+        int[] widths = {15, 15, 15};
+        String[] descs = {"Pesel", "Numer konta", "Kwota lokaty"};
 
         final Form form = new Form(labels, mnemonics, widths, descs);
 
@@ -62,7 +60,7 @@ public class OpenInvestmentForm implements ActionListener {
             public void valueChanged(ListSelectionEvent le) {
                 int idx = investmentPeriodList.getSelectedIndex();
                 if (idx != -1)
-                    selectedInvestmentPeriod =  Integer.parseInt(investmentPeriod[idx]);
+                    selectedInvestmentPeriod = Integer.parseInt(investmentPeriod[idx]);
                 else
                     System.out.println("Please choose a cuurency.");
             }
@@ -73,17 +71,12 @@ public class OpenInvestmentForm implements ActionListener {
     }
 
 
-
-    public static void createOpenInvestmentForm(){
-        String[] labels = {};
-        char[] mnemonics = {};
-        int[] widths = {};
-        String[] tips = {};
+    public static void createOpenInvestmentForm() {
 
         createPanel();
     }
 
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         createOpenInvestmentForm();
     }
 

@@ -8,13 +8,13 @@ import java.awt.event.ActionListener;
 import static banking.controller.ClientController.createClient;
 
 
-public class ClientForm implements ActionListener{
+public class ClientForm implements ActionListener {
 
     public static void createPanel() {
-        String[] labels = { "Imię", "Nazwisko", "Pesel" };
-        char[] mnemonics = { 'N', 'S', 'P' };
-        int[] widths = { 15, 15, 15 };
-        String[] descs = { "First Name", "Last Name", "Age" };
+        String[] labels = {"Imię", "Nazwisko", "Pesel"};
+        char[] mnemonics = {'N', 'S', 'P'};
+        int[] widths = {15, 15, 15};
+        String[] descs = {"First Name", "Last Name", "Age"};
 
         final Form form = new Form(labels, mnemonics, widths, descs);
 
@@ -41,18 +41,14 @@ public class ClientForm implements ActionListener{
         f.setVisible(true);
     }
 
-    public static void createClientForm(){
-        String[] labels = {};
-        char[] mnemonics = {};
-        int[] widths = {};
-        String[] tips = {};
+    public static void createClientForm() {
 
 
         createPanel();
 
     }
 
-    public void actionPerformed(ActionEvent e){
-       createClientForm();
+    public void actionPerformed(ActionEvent e) {
+        createClientForm();
     }
 }
