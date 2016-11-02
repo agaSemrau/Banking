@@ -7,8 +7,9 @@ import banking.model.Investment;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static banking.controller.CreateInvestment.INVESTMENTS_LIST;
+
 import static banking.controller.ServicesController.ACCOUNTS_LIST;
+import static banking.controller.ServicesController.INVESTMENTS_LIST;
 
 public class ClientController {
 

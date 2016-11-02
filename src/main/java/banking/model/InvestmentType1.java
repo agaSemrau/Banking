@@ -16,6 +16,11 @@ public class InvestmentType1 extends Investment{
     public String toString() {
         return "InvestmentType1{" +
                 "oprocentowanie=" + oprocentowanie +
+                " waluta lokaty=" + getWalutaLokaty() +
+                " numer konta lokaty=" + getNumerKontaLokaty()+
+                " czas trwania lokaty=" + getCzasTrwaniaLokaty()+
+                " kwota lokaty=" + getKwotaLokaty()+
+                " data założenia lokaty=" + getDataZalozeniaLokaty()+
                 '}';
     }
 }

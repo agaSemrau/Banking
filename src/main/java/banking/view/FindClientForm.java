@@ -1,6 +1,4 @@
-package banking.model.forms;
-
-import banking.model.forms.Form;
+package banking.view;
 
 import javax.swing.*;
 import java.awt.*;

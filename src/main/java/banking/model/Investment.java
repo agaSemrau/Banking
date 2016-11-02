@@ -32,5 +32,23 @@ public abstract class Investment {
                 '}';
     }
 
+    public String getWalutaLokaty() {
+        return walutaLokaty;
+    }
 
+    public long getNumerKontaLokaty() {
+        return numerKontaLokaty;
+    }
+
+    public int getCzasTrwaniaLokaty() {
+        return czasTrwaniaLokaty;
+    }
+
+    public long getKwotaLokaty() {
+        return kwotaLokaty;
+    }
+
+    public String getDataZalozeniaLokaty() {
+        return dataZalozeniaLokaty;
+    }
 }

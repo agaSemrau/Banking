@@ -1,4 +1,4 @@
-package banking.model.forms;
+package banking.view;
 
 
 import javax.swing.*;

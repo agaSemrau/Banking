@@ -1,9 +1,10 @@
 package banking;
 
 
-import banking.model.forms.ClientForm;
-import banking.model.forms.OpenAccountForm;
-import banking.model.forms.FindClientForm;
+import banking.view.ClientForm;
+import banking.view.OpenAccountForm;
+import banking.view.FindClientForm;
+import banking.view.OpenInvestmentForm;
 
 
 import javax.swing.*;
@@ -25,10 +26,12 @@ public class ApplicationStart {
             JButton showClient = new JButton("Wyszukaj klienta");
             JButton createAccount = new JButton("Załóż konto");
             JButton createInvestment = new JButton("Otwórz lokatę");
-            JButton findAccount = new JButton("Wyszukaj konto");
+
             addClient.addActionListener(new ClientForm());
             showClient.addActionListener(new FindClientForm());
             createAccount.addActionListener(new OpenAccountForm());
+            createInvestment.addActionListener(new OpenInvestmentForm());
+
 
             panelButtons.setLayout(new BoxLayout(panelButtons, BoxLayout.Y_AXIS));
             panelButtons.setBackground(Color.black);
@@ -41,7 +44,7 @@ public class ApplicationStart {
             panelButtons.add(showClient);
             panelButtons.add(createAccount);
             panelButtons.add(createInvestment);
-            panelButtons.add(findAccount);
+
 
             ramka.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             ramka.getContentPane().add(BorderLayout.WEST, panelButtons);
