@@ -1,5 +1,7 @@
 package banking.view;
 
+import banking.model.Currency;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -7,21 +9,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static banking.controller.ClientController.findClient;
-import static banking.controller.ServicesController.openAccount;
+import static banking.services.AccountsController.openAccount;
+import static banking.services.ClientController.findClient;
+
 
 public class OpenAccountForm implements ActionListener {
 
-    static String[] waluty = {"PLN", "EUR", "USD"};
+    static Currency[] waluty = {Currency.USD, Currency.PLN, Currency.EUR};
     static JList listaWalut = new JList(waluty);
-    static String selectedCurrency;
+    static Currency selectedCurrency;
 
-    public static String getSelectedCurrency() {
+    public static Currency getSelectedCurrency() {
         return selectedCurrency;
     }
 
-    public static void createPanel() {
 
+    public static  Currency[] getWaluty() {
+        return waluty;
+    }
+
+    public static void createPanel() {
 
         String[] labels = {"Podaj nr pesel"};
         char[] mnemonics = {'P'};
@@ -35,8 +42,8 @@ public class OpenAccountForm implements ActionListener {
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int pesel = Integer.parseInt(form.getText(0));
-                findClient(pesel);
-                openAccount(pesel);
+//                findClient(pesel);
+//                openAccount(pesel);
             }
         });
         JScrollPane scroll = new JScrollPane(listaWalut);
@@ -66,8 +73,6 @@ public class OpenAccountForm implements ActionListener {
 
 
     public static void createOpenAccountForm() {
-
-
         createPanel();
     }
 

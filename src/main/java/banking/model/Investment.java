@@ -1,17 +1,21 @@
 package banking.model;
 
 
-public abstract class Investment {
+import java.util.Date;
 
-    private String walutaLokaty;
+public class Investment {
+
+    private Currency walutaLokaty;
     private long numerKontaLokaty;
-    private int czasTrwaniaLokaty;
-    private long kwotaLokaty;
-    private String dataZalozeniaLokaty;
+    private InvestmentPeriod czasTrwaniaLokaty;
+    private double kwotaLokaty;
+    private Date dataZalozeniaLokaty;
+    private double rate;
+    private long clientPesel;
 
-    public Investment(String walutaLokaty, long numerKontaLokaty,
-                      int czasTrwaniaLokaty,
-                      long kwotaLokaty, String dataZalozeniaLokaty) {
+    public Investment(Currency walutaLokaty, long numerKontaLokaty,
+                      InvestmentPeriod czasTrwaniaLokaty,
+                      double kwotaLokaty, Date dataZalozeniaLokaty, double rate, long clientPesel) {
         this.czasTrwaniaLokaty = czasTrwaniaLokaty;
         this.numerKontaLokaty = numerKontaLokaty;
         this.walutaLokaty = walutaLokaty;
@@ -19,20 +23,24 @@ public abstract class Investment {
         this.czasTrwaniaLokaty = czasTrwaniaLokaty;
         this.kwotaLokaty = kwotaLokaty;
         this.dataZalozeniaLokaty = dataZalozeniaLokaty;
+        this.rate = rate;
+        this.clientPesel = clientPesel;
     }
 
     @Override
     public String toString() {
         return "Investment{" +
-                ", walutaLokaty='" + walutaLokaty + '\'' +
+                "walutaLokaty='" + walutaLokaty + '\'' +
                 ", numerKontaLokaty=" + numerKontaLokaty +
                 ", czasTrwaniaLokaty=" + czasTrwaniaLokaty +
                 ", kwotaLokaty=" + kwotaLokaty +
                 ", dataZalozeniaLokaty=" + dataZalozeniaLokaty +
+                ", oprocentowanie=" + rate +
+                ", pesel klienta=" + clientPesel +
                 '}';
     }
 
-    public String getWalutaLokaty() {
+    public Currency getWalutaLokaty() {
         return walutaLokaty;
     }
 
@@ -40,15 +48,23 @@ public abstract class Investment {
         return numerKontaLokaty;
     }
 
-    public int getCzasTrwaniaLokaty() {
+    public InvestmentPeriod getCzasTrwaniaLokaty() {
         return czasTrwaniaLokaty;
     }
 
-    public long getKwotaLokaty() {
+    public double getKwotaLokaty() {
         return kwotaLokaty;
     }
 
-    public String getDataZalozeniaLokaty() {
+    public Date getDataZalozeniaLokaty() {
         return dataZalozeniaLokaty;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public long getClientPesel() {
+        return clientPesel;
     }
 }

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static banking.controller.ClientController.findClient;
+import static banking.services.ClientController.findClient;
 
 
 public class FindClientForm implements ActionListener {
@@ -38,8 +38,6 @@ public class FindClientForm implements ActionListener {
     }
 
     public static void createFindClientForm() {
-
-
         createPanel();
     }
 
