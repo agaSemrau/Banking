@@ -42,4 +42,14 @@ public class AccountsController {
         }
         return theAccount;
     }
+
+    public static Account findAccountByPesel(long pesel) {
+        Account theAccount = null;
+        for (Account account : ACCOUNTS_LIST) {
+            if (account.getClientPesel() == pesel) {
+                theAccount = account;
+            }
+        }
+        return theAccount;
+    }
 }

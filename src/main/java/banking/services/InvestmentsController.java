@@ -56,6 +56,16 @@ public class InvestmentsController {
         return dataRozpoczeciaPromocji.getTime();
     }
 
+    public static Investment findInvestmentByPesel(long pesel) {
+        Investment theInvestment = null;
+        for (Investment investment : INVESTMENTS_LIST) {
+            if (investment.getClientPesel() == pesel) {
+                theInvestment = investment;
+            }
+        }
+        return theInvestment;
+    }
+
 
 
 
