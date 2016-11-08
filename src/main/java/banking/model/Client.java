@@ -6,16 +6,14 @@ import java.util.List;
 public class Client  {
     private String name;
     private String surname;
-    private long id;
     private long pesel;
     private List<Account> ACCOUNTS_LIST = new ArrayList<Account>();
     private List<Investment> INVESTMENTS_LIST = new ArrayList<Investment>();
 
 
-    public Client(String name, String surname, long id, long pesel) {
+    public Client(String name, String surname, long pesel) {
         this.name = name;
         this.surname = surname;
-        this.id = id;
         this.pesel = pesel;
     }
 
@@ -36,9 +34,6 @@ public class Client  {
         return surname;
     }
 
-    public long getId() {
-        return id;
-    }
 
     public void setACCOUNTS_LIST(List<Account> ACCOUNTS_LIST) {
         this.ACCOUNTS_LIST = ACCOUNTS_LIST;
@@ -57,10 +52,30 @@ public class Client  {
         return "Client{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", id=" + id +
                 ", pesel=" + pesel +
                 ", ACCOUNTS_LIST=" + ACCOUNTS_LIST +
                 ", INVESTMENTS_LIST=" + INVESTMENTS_LIST +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (pesel != client.pesel) return false;
+        if (!name.equals(client.name)) return false;
+        return surname.equals(client.surname);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result + (int) (pesel ^ (pesel >>> 32));
+        return result;
     }
 }

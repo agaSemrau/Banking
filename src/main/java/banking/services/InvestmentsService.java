@@ -2,6 +2,8 @@ package banking.services;
 
 import banking.exceptions.NoProductDefinitionFoundException;
 import banking.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,16 +11,15 @@ import java.util.Date;
 import java.util.List;
 
 
-import static banking.model.StandardInvestmentDefinition.setStartStadnardDepositDate;
-import static banking.services.AccountsController.findAccount;
-
-
-public class InvestmentsController {
+@Repository
+public class InvestmentsService {
     public static final List<Investment> INVESTMENTS_LIST = new ArrayList<Investment>();
     public static final List<InvestmentDefinition> PRODUCT_LIST = new ArrayList<InvestmentDefinition>();
     private static final long LIMIT = 10000000000L;
     private static long accountNumber = 0;
 
+    @Autowired
+    private AccountsService accountsService;
 
     static {
         java.util.List<Currency> rangedDepositCurrencies = new ArrayList<Currency>();
@@ -42,7 +43,7 @@ public class InvestmentsController {
         PRODUCT_LIST.add(new StandardInvestmentDefinition(standardDepositCurrencies, investmentPeriodList));
     }
 
-    public static long nadajNumerKonta() {
+    private long nadajNumerKonta() {
         long id = System.currentTimeMillis() % LIMIT;
         if (id <= accountNumber) {
             id = (accountNumber + 1) % LIMIT;
@@ -50,13 +51,13 @@ public class InvestmentsController {
         return accountNumber = id;
     }
 
-    public static Date setStartPromotionDate() {
+    private static Date setStartPromotionDate() {
         Calendar dataRozpoczeciaPromocji = Calendar.getInstance();
         dataRozpoczeciaPromocji.set(2016, 12, 28, 15, 40);
         return dataRozpoczeciaPromocji.getTime();
     }
 
-    public static Investment findInvestmentByPesel(long pesel) {
+    public Investment findInvestmentByPesel(long pesel) {
         Investment theInvestment = null;
         for (Investment investment : INVESTMENTS_LIST) {
             if (investment.getClientPesel() == pesel) {
@@ -66,22 +67,19 @@ public class InvestmentsController {
         return theInvestment;
     }
 
-
-
-
-    public static Investment openInvestment(long numerKonta, InvestmentPeriod investmentPeriod, double depositAmount) {
-        Account konto = findAccount(numerKonta);
-        Currency currency = konto.getWaluta();
+    public Investment openInvestment(long numerKonta, InvestmentPeriod investmentPeriod, double depositAmount) {
+        Account konto = accountsService.findAccount(numerKonta);
+        Currency currency = konto.getCurrency();
 
         InvestmentDefinition defToUse = getMatchingDefinition(depositAmount, currency, investmentPeriod);
-        Investment newInvestment = openInvestmentUsingDefinition(konto.getWaluta(), nadajNumerKonta(), investmentPeriod, depositAmount, new Date(), defToUse, konto.getClientPesel());
+        Investment newInvestment = openInvestmentUsingDefinition(konto.getCurrency(), nadajNumerKonta(), investmentPeriod, depositAmount, new Date(), defToUse, konto.getClientPesel());
 
-
+        INVESTMENTS_LIST.add(newInvestment);
         return newInvestment;
     }
 
 
-    private static InvestmentDefinition getMatchingDefinition(double depositAmmount, Currency currency, InvestmentPeriod period) {
+    private InvestmentDefinition getMatchingDefinition(double depositAmmount, Currency currency, InvestmentPeriod period) {
         InvestmentDefinition defToUse = null;
         for (InvestmentDefinition def : PRODUCT_LIST) {
             if (def.isEligible(depositAmmount, currency, new Date(), period)) {
@@ -92,11 +90,11 @@ public class InvestmentsController {
         return defToUse;
     }
 
-    public static Investment openInvestmentUsingDefinition(Currency walutaLokaty, long numerKontaLokaty, InvestmentPeriod czasTrwaniaLokaty, double kwotaLokaty, Date dataZalozeniaLokaty, InvestmentDefinition definition, long clientPesel) {
+    private Investment openInvestmentUsingDefinition(Currency depositCurrency, long numerKontaLokaty, InvestmentPeriod czasTrwaniaLokaty, double kwotaLokaty, Date dataZalozeniaLokaty, InvestmentDefinition definition, long clientPesel) {
         if (definition == null){
             throw new NoProductDefinitionFoundException("Nie udało się");
         }
-        Investment newInvestement = new Investment(walutaLokaty, numerKontaLokaty, czasTrwaniaLokaty, kwotaLokaty, dataZalozeniaLokaty, definition.getMatchingRate(kwotaLokaty), clientPesel);
+        Investment newInvestement = new Investment(depositCurrency, numerKontaLokaty, czasTrwaniaLokaty, kwotaLokaty, dataZalozeniaLokaty, definition.getMatchingRate(kwotaLokaty), clientPesel);
 
         return newInvestement;
     }
