@@ -1,5 +1,7 @@
 package banking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.activation.DataSource;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,10 +19,12 @@ public class Client  {
     @Id
     private long pesel;
 
-    @Transient
+
+    @OneToMany(mappedBy = "client")
     private List<Account> accountsList = new ArrayList<Account>();
 
-    @Transient
+
+    @OneToMany(mappedBy = "client")
     private List<Investment> investmentsList = new ArrayList<Investment>();
 
     public Client(){}

@@ -1,5 +1,7 @@
 package banking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class Account {
     private long accountNumber;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "pesel")
     private Client client;
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity(name="RangedInvestmentDefinition")
-@Table(name="deposits_definitions")
+
 public class RangedInvestmentDefinition implements InvestmentDefinition {
     @Id
     private String defName = "RangedInvestmentDefinition";

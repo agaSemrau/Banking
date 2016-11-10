@@ -1,6 +1,8 @@
 package banking.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 @Entity
@@ -29,6 +31,7 @@ public class Investment {
     private double rate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "pesel")
     private Client client;
 

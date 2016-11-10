@@ -47,24 +47,10 @@ public class AccountsService {
 
     public Account findAccount(long accountNr) {
         return entityManager.find(Account.class, accountNr);
-//        return this.entityManager.createQuery("SELECT account FROM Account account", Account.class).getSingleResult();
-//        Account theAccount = null;
-//        for (Account account : ACCOUNTS_LIST) {
-//            if (account.getAccountNumber() == kontoNr) {
-//                theAccount = account;
-//            }
-//        }
-//        return theAccount;
     }
 
     public List<Account> findAccountListByPesel(long pesel) {
-        return entityManager.createQuery("SELECT a FROM Account a WHERE a.client LIKE :clientData").setParameter("clientData", clientService.findClient(pesel)).getResultList();
-//        Account theAccount = null;
-//        for (Account account : ACCOUNTS_LIST) {
-//            if (account.getClient().getPesel() == pesel) {
-//                theAccount = account;
-//            }
-//        }
-//        return theAccount;
+        //return entityManager.createQuery("SELECT a FROM Account a WHERE a.client LIKE :clientData").setParameter("clientData", clientService.findClient(pesel)).getResultList();
+        return entityManager.createQuery("SELECT a FROM Account a WHERE a.client.pesel = :pesel").setParameter("pesel", pesel).getResultList();
     }
 }

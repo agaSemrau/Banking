@@ -1,6 +1,7 @@
 package banking.services;
 
 import banking.model.Client;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,7 +32,7 @@ public class ClientService {
 
     public Client findClient(long pesel) {
         Client c = entityManager.find(Client.class, pesel);
-
+        Hibernate.initialize(c);
         return c;
     }
 

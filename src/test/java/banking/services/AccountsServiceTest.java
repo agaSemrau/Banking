@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -55,6 +56,10 @@ public class AccountsServiceTest {
         Account newAccount =  accountsService.openAccount(Currency.EUR, 333, 22);
         List<Account> accResult = accountsService.findAccountListByPesel(333);
         assertTrue(accResult.contains(newAccount));
+        Account result = accResult.get(0);
+        assertNotNull(result.getClient());
+        Client c = clientService.findClient(333);
+        assertTrue(c.getAccountsList().contains(result));
     }
 
     @Test
