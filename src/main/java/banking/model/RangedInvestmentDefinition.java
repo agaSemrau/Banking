@@ -1,23 +1,30 @@
 package banking.model;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity(name="RangedInvestmentDefinition")
+@Table(name="deposits_definitions")
 public class RangedInvestmentDefinition implements InvestmentDefinition {
+    @Id
+    private String defName = "RangedInvestmentDefinition";
 
+    @ManyToOne(targetEntity = RangedInvestmentDefinition.class)
+    @JoinColumn(name = "ranges_list")
     private final List<Range> rangesList = new ArrayList<Range>();
+
+    @Column(name = "currency_list")
+    @ElementCollection(targetClass=Currency.class)
     private final List<Currency> currencyList = new ArrayList<Currency>();
+
+    @Column(name = "period_list")
+    @ElementCollection(targetClass=InvestmentPeriod.class)
     private final List<InvestmentPeriod> investmentPeriodList = new ArrayList<InvestmentPeriod>();
+
+    @Column(name = "starting_date")
     private final Date startingDate;
 
 
-
-    public Range getRange(int i) {
-        return rangesList.get(i);
-    }
-
-    public List<Range> getRangesList() {
-        return rangesList;
-    }
 
     public RangedInvestmentDefinition(List<Currency> currencyList, Date startingDate, List<InvestmentPeriod> investmentPeriodList, List<Range> rangesList) {
         this.currencyList.addAll(currencyList);
@@ -52,5 +59,7 @@ public class RangedInvestmentDefinition implements InvestmentDefinition {
         return rate;
     }
 
-
+    public List<Range> getRangesList() {
+        return rangesList;
+    }
 }

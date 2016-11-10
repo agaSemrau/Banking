@@ -1,6 +1,11 @@
 package banking.model;
 
+
+
+import javax.persistence.*;
 import java.util.Date;
+
+
 
 public interface InvestmentDefinition {
 

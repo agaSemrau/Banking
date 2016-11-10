@@ -1,15 +1,29 @@
 package banking.model;
 
+import javax.activation.DataSource;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Table(name = "clients")
 public class Client  {
-    private String name;
-    private String surname;
-    private long pesel;
-    private List<Account> ACCOUNTS_LIST = new ArrayList<Account>();
-    private List<Investment> INVESTMENTS_LIST = new ArrayList<Investment>();
 
+    @Column(name = "name",nullable = false)
+    private String name;
+
+    @Column(name = "surname",nullable = false)
+    private String surname;
+
+    @Id
+    private long pesel;
+
+    @Transient
+    private List<Account> accountsList = new ArrayList<Account>();
+
+    @Transient
+    private List<Investment> investmentsList = new ArrayList<Investment>();
+
+    public Client(){}
 
     public Client(String name, String surname, long pesel) {
         this.name = name;
@@ -22,8 +36,8 @@ public class Client  {
         return pesel;
     }
 
-    public List<Account> getACCOUNTS_LIST() {
-        return ACCOUNTS_LIST;
+    public List<Account> getAccountsList() {
+        return accountsList;
     }
 
     public String getName() {
@@ -35,16 +49,16 @@ public class Client  {
     }
 
 
-    public void setACCOUNTS_LIST(List<Account> ACCOUNTS_LIST) {
-        this.ACCOUNTS_LIST = ACCOUNTS_LIST;
+    public void setAccountsList(List<Account> accountsList) {
+        this.accountsList = accountsList;
     }
 
-    public void setINVESTMENTS_LIST(List<Investment> INVESTMENTS_LIST) {
-        this.INVESTMENTS_LIST = INVESTMENTS_LIST;
+    public void setInvestmentsList(List<Investment> investmentsList) {
+        this.investmentsList = investmentsList;
     }
 
-    public List<Investment> getINVESTMENTS_LIST() {
-        return INVESTMENTS_LIST;
+    public List<Investment> getInvestmentsList() {
+        return investmentsList;
     }
 
     @Override
@@ -53,8 +67,8 @@ public class Client  {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", pesel=" + pesel +
-                ", ACCOUNTS_LIST=" + ACCOUNTS_LIST +
-                ", INVESTMENTS_LIST=" + INVESTMENTS_LIST +
+                ", accountsList=" + accountsList +
+                ", investmentsList=" + investmentsList +
                 '}';
     }
 

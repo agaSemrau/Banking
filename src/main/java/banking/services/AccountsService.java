@@ -5,7 +5,10 @@ import banking.model.Client;
 import banking.model.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,9 @@ public class AccountsService {
     @Autowired
     private ClientService clientService;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private long nadajNumerKonta() {
         long id = System.currentTimeMillis() % LIMIT;
         if ( id <= accountNumber ) {
@@ -28,32 +34,39 @@ public class AccountsService {
         return accountNumber = id;
     }
 
-
+    @Transactional
     public Account openAccount(Currency currency, long pesel, double balance) {
-        Client klient = clientService.findClient(pesel);
-        Account newAccount = new Account(currency, nadajNumerKonta(), klient.getPesel(), balance);
+        Client client = clientService.findClient(pesel);
+        Account newAccount = new Account(currency, nadajNumerKonta(), client, balance);
         ACCOUNTS_LIST.add(newAccount);
-        klient.getACCOUNTS_LIST().add(newAccount);
+        client.getAccountsList().add(newAccount);
+
+        entityManager.persist(newAccount);
+        entityManager.flush();
+
         return newAccount;
     }
 
-    public Account findAccount(long kontoNr) {
-        Account theAccount = null;
-        for (Account account : ACCOUNTS_LIST) {
-            if (account.getAccountNumber() == kontoNr) {
-                theAccount = account;
-            }
-        }
-        return theAccount;
+    public Account findAccount(long accountNr) {
+        return entityManager.find(Account.class, accountNr);
+//        return this.entityManager.createQuery("SELECT account FROM Account account", Account.class).getSingleResult();
+//        Account theAccount = null;
+//        for (Account account : ACCOUNTS_LIST) {
+//            if (account.getAccountNumber() == kontoNr) {
+//                theAccount = account;
+//            }
+//        }
+//        return theAccount;
     }
 
-    public Account findAccountByPesel(long pesel) {
-        Account theAccount = null;
-        for (Account account : ACCOUNTS_LIST) {
-            if (account.getClientPesel() == pesel) {
-                theAccount = account;
-            }
-        }
-        return theAccount;
+    public List<Account> findAccountListByPesel(long pesel) {
+        return entityManager.createQuery("SELECT a FROM Account a WHERE a.client LIKE :clientData").setParameter("clientData", clientService.findClient(pesel)).getResultList();
+//        Account theAccount = null;
+//        for (Account account : ACCOUNTS_LIST) {
+//            if (account.getClient().getPesel() == pesel) {
+//                theAccount = account;
+//            }
+//        }
+//        return theAccount;
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +30,7 @@ public class AccountsServiceTest {
         Client newClient = clientService.createClient("Aga", "Lamaga", 123);
         Account newAccount =  accountsService.openAccount(Currency.EUR, 123, 0);
         assertEquals(newAccount.getCurrency(),Currency.EUR);
-        assertEquals(newAccount.getClientPesel(), 123);
+        assertEquals(newAccount.getClient().getPesel(), 123);
         assertTrue(newAccount.getBalance()== 0);
     }
 
@@ -44,13 +46,13 @@ public class AccountsServiceTest {
     public void testFindAccountByPesel(){
         Client newClient = clientService.createClient("Fela", "Pomela", 333);
         Account newAccount =  accountsService.openAccount(Currency.EUR, 333, 22);
-        Account accResult = accountsService.findAccountByPesel(333);
+        List<Account> accResult = accountsService.findAccountListByPesel(333);
         assertEquals(newAccount, accResult);
     }
 
     @Test
     public void testDoNotFindAccountByPesel(){
-        Account accResult = accountsService.findAccountByPesel(444);
+        List<Account> accResult = accountsService.findAccountListByPesel(444);
         assertTrue(accResult==null);
     }
 

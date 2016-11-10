@@ -1,21 +1,38 @@
 package banking.model;
 
 
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
+@Table(name="deposits")
 public class Investment {
 
+    @Column(name = "currency",nullable = false)
     private Currency currency;
+
+   @Id
     private long accountNumber;
+
+    @Column(name = "period",nullable = false)
     private InvestmentPeriod investmentPeriod;
+
+    @Column(name = "balance",nullable = false)
     private double amount;
+
+    @Column(name = "opening_date",nullable = false)
     private Date openingDate;
+
+    @Column(name = "rate",nullable = false)
     private double rate;
-    private long clientPesel;
+
+    @ManyToOne
+    private Client client;
+
+    public Investment(){}
 
     public Investment(Currency currency, long accountNumber,
                       InvestmentPeriod investmentPeriod,
-                      double kwotaLokaty, Date openingDate, double rate, long clientPesel) {
+                      double kwotaLokaty, Date openingDate, double rate, Client client) {
         this.investmentPeriod = investmentPeriod;
         this.accountNumber = accountNumber;
         this.currency = currency;
@@ -24,7 +41,7 @@ public class Investment {
         this.amount = kwotaLokaty;
         this.openingDate = openingDate;
         this.rate = rate;
-        this.clientPesel = clientPesel;
+        this.client = client;
     }
 
     @Override
@@ -36,7 +53,7 @@ public class Investment {
                 ", kwotaLokaty=" + amount +
                 ", openingDate=" + openingDate +
                 ", oprocentowanie=" + rate +
-                ", pesel klienta=" + clientPesel +
+                ", klient=" + client +
                 '}';
     }
 
@@ -64,8 +81,8 @@ public class Investment {
         return rate;
     }
 
-    public long getClientPesel() {
-        return clientPesel;
+    public Client getClient() {
+        return client;
     }
 
     @Override
@@ -78,10 +95,10 @@ public class Investment {
         if (accountNumber != that.accountNumber) return false;
         if (Double.compare(that.amount, amount) != 0) return false;
         if (Double.compare(that.rate, rate) != 0) return false;
-        if (clientPesel != that.clientPesel) return false;
         if (currency != that.currency) return false;
         if (investmentPeriod != that.investmentPeriod) return false;
-        return openingDate.equals(that.openingDate);
+        if (!openingDate.equals(that.openingDate)) return false;
+        return client.equals(that.client);
 
     }
 
@@ -97,7 +114,7 @@ public class Investment {
         result = 31 * result + openingDate.hashCode();
         temp = Double.doubleToLongBits(rate);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (int) (clientPesel ^ (clientPesel >>> 32));
+        result = 31 * result + client.hashCode();
         return result;
     }
 }

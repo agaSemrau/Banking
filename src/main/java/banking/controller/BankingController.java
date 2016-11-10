@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import static banking.services.AccountsService.*;
+import java.util.List;
 
+import static banking.services.AccountsService.*;
 
 
 @RestController
@@ -30,24 +31,34 @@ public class BankingController {
     private InvestmentsService investmentsService;
 
     @RequestMapping(value = "/addClient", method = {RequestMethod.POST})
-    public void restAddNewClient(@RequestParam() String name, @RequestParam() String surname, @RequestParam() int pesel) {
+    public void restAddNewClient(@RequestParam() String name, @RequestParam() String surname, @RequestParam() long pesel) {
         clientService.createClient(name, surname, pesel);
     }
 
     @RequestMapping(value = "/createAccount", method = {RequestMethod.POST})
-    public void restAddAccount(@RequestParam() Currency currency, @RequestParam() int pesel, @RequestParam() double balance) {
+    public void restAddAccount(@RequestParam() Currency currency, @RequestParam() long pesel, @RequestParam() double balance) {
         accountsService.openAccount(currency, pesel, balance);
     }
 
-
     @RequestMapping(value = "/findClient", method = {RequestMethod.GET})
-    public Client restFindClient(@RequestParam() int pesel) {
+    public Client restFindClient(@RequestParam() long pesel) {
         return clientService.findClient(pesel);
     }
 
+
+    @RequestMapping(value = "/getClientList", method = {RequestMethod.GET})
+    public List<Client> getClientList() {
+        return clientService.getClientList();
+    }
+
+    @RequestMapping(value = "/findAccountList", method = {RequestMethod.GET})
+    public List<Account> restFindClientsAccountList(@RequestParam() long pesel) {
+        return accountsService.findAccountListByPesel(pesel);
+    }
+
     @RequestMapping(value = "/findAccount", method = {RequestMethod.GET})
-    public Account restFindClientsAccountList(@RequestParam() int pesel) {
-        return accountsService.findAccountByPesel(pesel);
+    public Account restFindAccount(@RequestParam() long accNumber) {
+        return accountsService.findAccount(accNumber);
     }
 
     @RequestMapping(value = "/openInvestment", method = {RequestMethod.POST})
@@ -57,7 +68,7 @@ public class BankingController {
     }
 
     @RequestMapping(value = "/findInvestment", method = {RequestMethod.GET})
-    public Investment restFindClientsInvestmentsList(@RequestParam() long pesel) {
-        return investmentsService.findInvestmentByPesel(pesel);
+    public List<Investment> restFindClientsInvestmentsList(@RequestParam() long pesel) {
+        return investmentsService.findInvestmentListByPesel(pesel);
     }
 }

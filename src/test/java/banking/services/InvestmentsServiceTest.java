@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +30,7 @@ public class InvestmentsServiceTest {
         Client newClient = clientService.createClient("Aga", "Lamaga", 123);
         Account newAccount =  accountsService.openAccount(Currency.EUR, 123, 0);
         Investment newInvestment = investmentsService.openInvestment(newAccount.getAccountNumber(), InvestmentPeriod.ONE_MONTH, 3000);
-        assertEquals(newInvestment.getClientPesel(), 123);
+        assertEquals(newInvestment.getClient().getPesel(), 123);
         assertEquals(newInvestment.getCurrency(), Currency.EUR );
         assertEquals(newInvestment.getInvestmentPeriod(), InvestmentPeriod.ONE_MONTH);
         assertTrue(newInvestment.getKwotaLokaty() == 3000);
@@ -39,13 +41,13 @@ public class InvestmentsServiceTest {
         Client newClient = clientService.createClient("Aga", "Blebla", 333);
         Account newAccount =  accountsService.openAccount(Currency.EUR, 333, 0);
         Investment newInvestment = investmentsService.openInvestment(newAccount.getAccountNumber(), InvestmentPeriod.THREE_MONTHS, 1000);
-        Investment invResult = investmentsService.findInvestmentByPesel(333);
+        List<Investment> invResult = investmentsService.findInvestmentListByPesel(333);
         assertEquals(newInvestment, invResult);
     }
 
     @Test
     public void testNotFindInvestmentByPesel(){
-        Investment invResult = investmentsService.findInvestmentByPesel(434);
+        List<Investment> invResult = investmentsService.findInvestmentListByPesel(434);
         assertTrue(invResult == null);
     }
 }

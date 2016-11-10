@@ -1,10 +1,15 @@
 package banking.services;
 
+
+
 import banking.exceptions.NoProductDefinitionFoundException;
 import banking.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +25,13 @@ public class InvestmentsService {
 
     @Autowired
     private AccountsService accountsService;
+
+    @Autowired
+    private ClientService clientService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
 
     static {
         java.util.List<Currency> rangedDepositCurrencies = new ArrayList<Currency>();
@@ -57,24 +69,30 @@ public class InvestmentsService {
         return dataRozpoczeciaPromocji.getTime();
     }
 
-    public Investment findInvestmentByPesel(long pesel) {
-        Investment theInvestment = null;
-        for (Investment investment : INVESTMENTS_LIST) {
-            if (investment.getClientPesel() == pesel) {
-                theInvestment = investment;
-            }
-        }
-        return theInvestment;
+    public List<Investment> findInvestmentListByPesel(long pesel) {
+        return entityManager.createQuery("SELECT i FROM Investment i WHERE i.client LIKE :clientData").setParameter("clientData", clientService.findClient(pesel)).getResultList();
+//        Investment theInvestment = null;
+//        for (Investment investment : INVESTMENTS_LIST) {
+//            if (investment.getClient().getPesel() == pesel) {
+//                theInvestment = investment;
+//            }
+//        }
+//        return theInvestment;
     }
 
+    @Transactional
     public Investment openInvestment(long numerKonta, InvestmentPeriod investmentPeriod, double depositAmount) {
         Account konto = accountsService.findAccount(numerKonta);
         Currency currency = konto.getCurrency();
 
         InvestmentDefinition defToUse = getMatchingDefinition(depositAmount, currency, investmentPeriod);
-        Investment newInvestment = openInvestmentUsingDefinition(konto.getCurrency(), nadajNumerKonta(), investmentPeriod, depositAmount, new Date(), defToUse, konto.getClientPesel());
+        Investment newInvestment = openInvestmentUsingDefinition(konto.getCurrency(), nadajNumerKonta(), investmentPeriod, depositAmount, new Date(), defToUse, konto.getClient());
 
         INVESTMENTS_LIST.add(newInvestment);
+
+        entityManager.persist(newInvestment);
+        entityManager.flush();
+
         return newInvestment;
     }
 
@@ -90,11 +108,11 @@ public class InvestmentsService {
         return defToUse;
     }
 
-    private Investment openInvestmentUsingDefinition(Currency depositCurrency, long numerKontaLokaty, InvestmentPeriod czasTrwaniaLokaty, double kwotaLokaty, Date dataZalozeniaLokaty, InvestmentDefinition definition, long clientPesel) {
-        if (definition == null){
+    private Investment openInvestmentUsingDefinition(Currency depositCurrency, long numerKontaLokaty, InvestmentPeriod czasTrwaniaLokaty, double kwotaLokaty, Date dataZalozeniaLokaty, InvestmentDefinition definition, Client client) {
+        if (definition == null) {
             throw new NoProductDefinitionFoundException("Nie udało się");
         }
-        Investment newInvestement = new Investment(depositCurrency, numerKontaLokaty, czasTrwaniaLokaty, kwotaLokaty, dataZalozeniaLokaty, definition.getMatchingRate(kwotaLokaty), clientPesel);
+        Investment newInvestement = new Investment(depositCurrency, numerKontaLokaty, czasTrwaniaLokaty, kwotaLokaty, dataZalozeniaLokaty, definition.getMatchingRate(kwotaLokaty), client);
 
         return newInvestement;
     }

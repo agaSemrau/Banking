@@ -1,12 +1,16 @@
 package banking.services;
 
 import banking.model.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
@@ -15,23 +19,26 @@ public class ClientService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private static final java.util.List<Client> CLIENTS_LIST = new ArrayList<Client>();
-
-
     @Transactional
-    public Client createClient(String name, String surname, int pesel){
-        Client klient = new Client(name, surname, pesel);
-        CLIENTS_LIST.add(klient);
-        return klient;
+    public Client createClient(String name, String surname, long pesel){
+        Client client = new Client(name, surname, pesel);
+
+        entityManager.persist(client);
+        entityManager.flush();
+
+        return client;
     }
 
     public Client findClient(long pesel) {
-        Client theClient = null;
-        for (Client klient : CLIENTS_LIST) {
-            if (klient.getPesel() == pesel) {
-                theClient = klient;
-            }
-        }
-        return theClient;
+        Client c = entityManager.find(Client.class, pesel);
+
+        return c;
     }
+
+    public List<Client> getClientList(){
+        Query q =entityManager.createQuery("Select c from Client c");
+        return q.getResultList();
+    }
+
+
 }

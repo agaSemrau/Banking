@@ -1,14 +1,28 @@
 package banking.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+@Entity(name="StandardInvestmentDefinition")
+@Table(name="deposits_definitions")
 
 public class StandardInvestmentDefinition implements InvestmentDefinition {
+    @Id
+    private String defName = "StandardInvestmentDefinition";
+
+    @Column(name = "rate")
     private static double rate = 0.3;
+
+    @Column(name = "currency_list")
+    @ElementCollection(targetClass=Currency.class)
     private final List<Currency> currencyList = new ArrayList<Currency>();
+
+    @Column(name = "period_list")
+    @ElementCollection(targetClass=InvestmentPeriod.class)
     private final List<InvestmentPeriod> investmentPeriodList = new ArrayList<InvestmentPeriod>();
+
 
     public StandardInvestmentDefinition(List<Currency> currencyList, List<InvestmentPeriod> investmentPeriodList) {
         this.currencyList.addAll(currencyList);
