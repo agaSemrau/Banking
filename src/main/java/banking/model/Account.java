@@ -13,6 +13,7 @@ public class Account {
     private long accountNumber;
 
     @ManyToOne
+    @JoinColumn(name = "pesel")
     private Client client;
 
     @Column(name = "balance",nullable = false)
