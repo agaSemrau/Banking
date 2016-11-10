@@ -38,8 +38,6 @@ public class AccountsService {
     public Account openAccount(Currency currency, long pesel, double balance) {
         Client client = clientService.findClient(pesel);
         Account newAccount = new Account(currency, nadajNumerKonta(), client, balance);
-        ACCOUNTS_LIST.add(newAccount);
-        client.getAccountsList().add(newAccount);
 
         entityManager.persist(newAccount);
         entityManager.flush();

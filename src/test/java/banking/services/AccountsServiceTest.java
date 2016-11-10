@@ -8,7 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -17,7 +20,11 @@ import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @RunWith(SpringRunner.class)
+@Transactional
 public class AccountsServiceTest {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     AccountsService accountsService;
@@ -47,13 +54,13 @@ public class AccountsServiceTest {
         Client newClient = clientService.createClient("Fela", "Pomela", 333);
         Account newAccount =  accountsService.openAccount(Currency.EUR, 333, 22);
         List<Account> accResult = accountsService.findAccountListByPesel(333);
-        assertEquals(newAccount, accResult);
+        assertTrue(accResult.contains(newAccount));
     }
 
     @Test
     public void testDoNotFindAccountByPesel(){
         List<Account> accResult = accountsService.findAccountListByPesel(444);
-        assertTrue(accResult==null);
+        assertTrue(accResult.isEmpty());
     }
 
     @Test

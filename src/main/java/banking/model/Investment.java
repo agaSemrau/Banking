@@ -7,12 +7,15 @@ import java.util.Date;
 @Table(name="deposits")
 public class Investment {
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "currency",nullable = false)
     private Currency currency;
 
-   @Id
+    @Id
+    @Column(name = "number")
     private long accountNumber;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "period",nullable = false)
     private InvestmentPeriod investmentPeriod;
 
@@ -26,6 +29,7 @@ public class Investment {
     private double rate;
 
     @ManyToOne
+    @JoinColumn(name = "pesel")
     private Client client;
 
     public Investment(){}

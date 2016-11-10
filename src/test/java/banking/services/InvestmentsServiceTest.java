@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @RunWith(SpringRunner.class)
+@Transactional
 public class InvestmentsServiceTest {
     @Autowired
     InvestmentsService investmentsService;
@@ -42,12 +44,12 @@ public class InvestmentsServiceTest {
         Account newAccount =  accountsService.openAccount(Currency.EUR, 333, 0);
         Investment newInvestment = investmentsService.openInvestment(newAccount.getAccountNumber(), InvestmentPeriod.THREE_MONTHS, 1000);
         List<Investment> invResult = investmentsService.findInvestmentListByPesel(333);
-        assertEquals(newInvestment, invResult);
+        assertTrue(invResult.contains(newInvestment));
     }
 
     @Test
     public void testNotFindInvestmentByPesel(){
         List<Investment> invResult = investmentsService.findInvestmentListByPesel(434);
-        assertTrue(invResult == null);
+        assertTrue(invResult.isEmpty());
     }
 }

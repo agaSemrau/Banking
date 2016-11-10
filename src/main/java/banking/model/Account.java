@@ -6,10 +6,12 @@ import javax.persistence.*;
 @Table(name="accounts")
 public class Account {
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "currency",nullable = false)
     private Currency currency;
 
     @Id
+    @Column(name = "number")
     private long accountNumber;
 
     @ManyToOne

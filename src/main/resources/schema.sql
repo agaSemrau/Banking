@@ -8,7 +8,7 @@ primary key(pesel)
 create table accounts (
 pesel bigint(11) NOT NULL,
 currency char(3) NOT NULL,
-number int(10) NOT NULL,
+number bigint(10) NOT NULL,
 balance double(10) NOT NULL,
 primary key(number),
 foreign key(pesel)
@@ -18,7 +18,7 @@ REFERENCES public.clients(pesel)
 create table deposits (
 pesel bigint(11),
 currency char(3),
-number int(10),
+number bigint(10),
 balance double(10),
 period varchar(20),
 rate double(5),
