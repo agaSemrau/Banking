@@ -1,11 +1,28 @@
 package banking.model;
 
-public class Range {
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private final double min;
-    private final double rate;
+@Entity
+@IdClass(Range.class)
+@Table(name = "ranges")
+public class Range implements Serializable {
 
-    public Range( double min,double rate) {
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "definition_name")
+    private RangedInvestmentDefinition definition;
+
+    @Id
+    @Column(name = "minimum")
+    private double min;
+
+    private double rate;
+
+    public Range() {
+    }
+
+    public Range(double min, double rate) {
         this.min = min;
         this.rate = rate;
     }
@@ -18,7 +35,7 @@ public class Range {
         return min;
     }
 
-    public boolean contains(long number){
-        return(number>=min);
+    public boolean contains(long number) {
+        return (number >= min);
     }
 }

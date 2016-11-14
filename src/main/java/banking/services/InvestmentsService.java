@@ -18,8 +18,6 @@ import java.util.List;
 
 @Repository
 public class InvestmentsService {
-    public static final List<Investment> INVESTMENTS_LIST = new ArrayList<Investment>();
-    public static final List<InvestmentDefinition> PRODUCT_LIST = new ArrayList<InvestmentDefinition>();
     private static final long LIMIT = 10000000000L;
     private static long accountNumber = 0;
 
@@ -29,30 +27,33 @@ public class InvestmentsService {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private ProductsService productsService;
+
     @PersistenceContext
     private EntityManager entityManager;
 
 
     static {
-        java.util.List<Currency> rangedDepositCurrencies = new ArrayList<Currency>();
-        rangedDepositCurrencies.add(Currency.EUR);
-        rangedDepositCurrencies.add(Currency.USD);
-
-        java.util.List<Currency> standardDepositCurrencies = new ArrayList<Currency>();
-        standardDepositCurrencies.add(Currency.PLN);
-
-        List<InvestmentPeriod> investmentPeriodList = new ArrayList<InvestmentPeriod>();
-        investmentPeriodList.add(InvestmentPeriod.ONE_MONTH);
-        investmentPeriodList.add(InvestmentPeriod.THREE_MONTHS);
-        investmentPeriodList.add(InvestmentPeriod.SIX_MONTHS);
-
-        List<Range> rangesList = new ArrayList<Range>();
-        rangesList.add(new Range(1, 0.1));
-        rangesList.add(new Range(1000, 0.2));
-        rangesList.add(new Range(5000, 0.25));
-
-        PRODUCT_LIST.add(new RangedInvestmentDefinition(rangedDepositCurrencies, setStartPromotionDate(), investmentPeriodList, rangesList));
-        PRODUCT_LIST.add(new StandardInvestmentDefinition(standardDepositCurrencies, investmentPeriodList));
+//        java.util.List<Currency> rangedDepositCurrencies = new ArrayList<Currency>();
+//        rangedDepositCurrencies.add(Currency.EUR);
+//        rangedDepositCurrencies.add(Currency.USD);
+//
+//        java.util.List<Currency> standardDepositCurrencies = new ArrayList<Currency>();
+//        standardDepositCurrencies.add(Currency.PLN);
+//
+//        List<InvestmentPeriod> investmentPeriodList = new ArrayList<InvestmentPeriod>();
+//        investmentPeriodList.add(InvestmentPeriod.ONE_MONTH);
+//        investmentPeriodList.add(InvestmentPeriod.THREE_MONTHS);
+//        investmentPeriodList.add(InvestmentPeriod.SIX_MONTHS);
+//
+//        List<Range> rangesList = new ArrayList<Range>();
+//        rangesList.add(new Range(1, 0.1));
+//        rangesList.add(new Range(1000, 0.2));
+//        rangesList.add(new Range(5000, 0.25));
+//
+//        PRODUCT_LIST.add(new RangedInvestmentDefinition(rangedDepositCurrencies, setStartPromotionDate(), investmentPeriodList, rangesList));
+//        PRODUCT_LIST.add(new StandardInvestmentDefinition(standardDepositCurrencies, investmentPeriodList));
     }
 
     private long nadajNumerKonta() {
@@ -71,13 +72,6 @@ public class InvestmentsService {
 
     public List<Investment> findInvestmentListByPesel(long pesel) {
         return entityManager.createQuery("SELECT i FROM Investment i WHERE i.client LIKE :clientData").setParameter("clientData", clientService.findClient(pesel)).getResultList();
-//        Investment theInvestment = null;
-//        for (Investment investment : INVESTMENTS_LIST) {
-//            if (investment.getClient().getPesel() == pesel) {
-//                theInvestment = investment;
-//            }
-//        }
-//        return theInvestment;
     }
 
     @Transactional
@@ -88,8 +82,6 @@ public class InvestmentsService {
         InvestmentDefinition defToUse = getMatchingDefinition(depositAmount, currency, investmentPeriod);
         Investment newInvestment = openInvestmentUsingDefinition(konto.getCurrency(), nadajNumerKonta(), investmentPeriod, depositAmount, new Date(), defToUse, konto.getClient());
 
-        INVESTMENTS_LIST.add(newInvestment);
-
         entityManager.persist(newInvestment);
         entityManager.flush();
 
@@ -99,7 +91,7 @@ public class InvestmentsService {
 
     private InvestmentDefinition getMatchingDefinition(double depositAmmount, Currency currency, InvestmentPeriod period) {
         InvestmentDefinition defToUse = null;
-        for (InvestmentDefinition def : PRODUCT_LIST) {
+        for (InvestmentDefinition def : productsService.getAllProducts()) {
             if (def.isEligible(depositAmmount, currency, new Date(), period)) {
                 defToUse = def;
                 break;

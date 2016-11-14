@@ -40,6 +40,8 @@ public class AccountsService {
         Account newAccount = new Account(currency, nadajNumerKonta(), client, balance);
 
         entityManager.persist(newAccount);
+
+        client.getAccountsList().add(newAccount);
         entityManager.flush();
 
         return newAccount;

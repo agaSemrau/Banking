@@ -6,27 +6,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 @Entity(name="StandardInvestmentDefinition")
-@Table(name="deposits_definitions")
+@DiscriminatorValue("SID")
+public class StandardInvestmentDefinition extends InvestmentDefinition {
 
-public class StandardInvestmentDefinition implements InvestmentDefinition {
-    @Id
-    private String defName = "StandardInvestmentDefinition";
 
     @Column(name = "rate")
-    private static double rate = 0.3;
+    private double rate;
+    
 
-    @Column(name = "currency_list")
-    @ElementCollection(targetClass=Currency.class)
-    private final List<Currency> currencyList = new ArrayList<Currency>();
+    public StandardInvestmentDefinition() {
+    }
 
-    @Column(name = "period_list")
-    @ElementCollection(targetClass=InvestmentPeriod.class)
-    private final List<InvestmentPeriod> investmentPeriodList = new ArrayList<InvestmentPeriod>();
-
-
-    public StandardInvestmentDefinition(List<Currency> currencyList, List<InvestmentPeriod> investmentPeriodList) {
-        this.currencyList.addAll(currencyList);
-        this.investmentPeriodList.addAll(investmentPeriodList);
+    public StandardInvestmentDefinition(String definitionName, List<InvestmentPeriod> investmentPeriodList, List<Currency> currencyList, Date startingDate, double rate) {
+        super(definitionName, investmentPeriodList, currencyList, startingDate);
+        this.rate = rate;
     }
 
     public boolean isEligible(double ammount, Currency currency, Date openingDate, InvestmentPeriod period) {
@@ -34,7 +27,6 @@ public class StandardInvestmentDefinition implements InvestmentDefinition {
         if (currencyList.contains(currency) & investmentPeriodList.contains(period)) {
             result = true;
         }
-
         return result;
     }
 
@@ -49,6 +41,8 @@ public class StandardInvestmentDefinition implements InvestmentDefinition {
         return dataRozpoczeciaPromocji.getTime();
     }
 
-
+    public double getRate() {
+        return rate;
+    }
 }
 

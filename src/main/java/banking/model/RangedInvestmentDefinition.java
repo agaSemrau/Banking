@@ -4,32 +4,21 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity(name="RangedInvestmentDefinition")
+@DiscriminatorValue("RID")
+public class RangedInvestmentDefinition extends InvestmentDefinition {
 
-public class RangedInvestmentDefinition implements InvestmentDefinition {
-    @Id
-    private String defName = "RangedInvestmentDefinition";
 
-    @ManyToOne(targetEntity = RangedInvestmentDefinition.class)
-    @JoinColumn(name = "ranges_list")
+    @OneToMany(targetEntity = Range.class, mappedBy = "definition")
+
     private final List<Range> rangesList = new ArrayList<Range>();
 
-    @Column(name = "currency_list")
-    @ElementCollection(targetClass=Currency.class)
-    private final List<Currency> currencyList = new ArrayList<Currency>();
 
-    @Column(name = "period_list")
-    @ElementCollection(targetClass=InvestmentPeriod.class)
-    private final List<InvestmentPeriod> investmentPeriodList = new ArrayList<InvestmentPeriod>();
+    public RangedInvestmentDefinition(){
 
-    @Column(name = "starting_date")
-    private final Date startingDate;
+    }
 
-
-
-    public RangedInvestmentDefinition(List<Currency> currencyList, Date startingDate, List<InvestmentPeriod> investmentPeriodList, List<Range> rangesList) {
-        this.currencyList.addAll(currencyList);
-        this.startingDate = startingDate;
-        this.investmentPeriodList.addAll(investmentPeriodList);
+    public RangedInvestmentDefinition(String definitionName, List<InvestmentPeriod> investmentPeriodList, List<Currency> currencyList, Date startingDate) {
+        super(definitionName, investmentPeriodList, currencyList, startingDate);
         this.rangesList.addAll(rangesList);
         rangesList.sort(new Comparator<Range>() {
             @Override
@@ -40,10 +29,11 @@ public class RangedInvestmentDefinition implements InvestmentDefinition {
         Collections.reverse(rangesList);
     }
 
+
     public boolean isEligible(double ammount, Currency currency, Date openingDate, InvestmentPeriod period){
         boolean result = false;
         for (Range range : rangesList){
-            if(ammount>=range.getMin() && currencyList.contains(currency) && (startingDate.compareTo(openingDate)>=0) && investmentPeriodList.contains(period) ){
+            if(ammount>=range.getMin() && currencyList.contains(currency) && (startingDate.compareTo(openingDate)<=0) && investmentPeriodList.contains(period) ){
                 result = true;
             }
         }
@@ -62,4 +52,6 @@ public class RangedInvestmentDefinition implements InvestmentDefinition {
     public List<Range> getRangesList() {
         return rangesList;
     }
+
+
 }

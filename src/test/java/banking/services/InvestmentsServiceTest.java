@@ -52,4 +52,5 @@ public class InvestmentsServiceTest {
         List<Investment> invResult = investmentsService.findInvestmentListByPesel(434);
         assertTrue(invResult.isEmpty());
     }
+
 }

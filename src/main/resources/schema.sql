@@ -29,14 +29,44 @@ REFERENCES public.clients(pesel)
 );
 
 create table deposits_definitions (
-def_name varchar(20),
-ranges_list array(50),
-currency_list array(50),
-period_list array(50),
+deposit_type varchar (40),
+name varchar(40),
 starting_date date,
-rate double(5),
-primary key(def_name)
+rate double,
+primary key(name)
 );
+
+create table currencies (
+definition_name varchar NOT NULL,
+currency char(3),
+primary key (definition_name, currency),
+foreign key (definition_name)
+REFERENCES public.deposits_definitions(name)
+);
+
+create table ranges (
+definition_name varchar NOT NULL,
+minimum int,
+rate double,
+primary key(definition_name, minimum),
+foreign key (definition_name)
+REFERENCES public.deposits_definitions(name)
+);
+
+create table periods (
+definition_name varchar NOT NULL,
+period varchar,
+primary key (definition_name, period),
+foreign key (definition_name)
+REFERENCES public.deposits_definitions(name)
+);
+
+
+
+
+
+
+
 
 
 

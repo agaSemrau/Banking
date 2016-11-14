@@ -54,12 +54,9 @@ public class AccountsServiceTest {
     public void testFindAccountByPesel(){
         Client newClient = clientService.createClient("Fela", "Pomela", 333);
         Account newAccount =  accountsService.openAccount(Currency.EUR, 333, 22);
+        entityManager.clear();
         List<Account> accResult = accountsService.findAccountListByPesel(333);
         assertTrue(accResult.contains(newAccount));
-        Account result = accResult.get(0);
-        assertNotNull(result.getClient());
-        Client c = clientService.findClient(333);
-        assertTrue(c.getAccountsList().contains(result));
     }
 
     @Test
